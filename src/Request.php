@@ -36,7 +36,7 @@ class Request
 
     private function getRequestClassName($method)
     {
-        return sprintf('\Hyperf\HttpRequest\%sRequest', ucfirst($method));
+        return sprintf('\Hyperf\HttpRequest\%sRequest', ucfirst(strtolower($method)));
     }
 
     /**
