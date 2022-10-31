@@ -37,7 +37,7 @@ class RequestTest extends TestCase
 
     public function testRequestSend()
     {
-        $url = 'https://api.juejin.cn/growth_api/v1/lottery_config/get';
+        $url = 'https://XXX/growth_api/v1/lottery_config/get';
         $data = [
             'aid' => '6587',
             'uuid' => '7039128193925088782',
