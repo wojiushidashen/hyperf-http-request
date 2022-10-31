@@ -47,7 +47,7 @@ class Request
     {
         $map = array_flip(self::METHODS);
 
-        if (! isset($map[$method])) {
+        if (! isset($map[strtoupper($method)])) {
             throw new InvalidArgumentException('参数`method`错误！');
         }
 
