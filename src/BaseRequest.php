@@ -27,6 +27,12 @@ class BaseRequest implements RequestInterface
 
     public const PUT_METHOD = 'PUT';
 
+    public const CONTENT_TYPES = [
+        'application/json',
+        'multipart/form-data',
+        'application/x-www-form-urlencoded',
+    ];
+
     public $url;
 
     public $method;
@@ -144,5 +150,70 @@ class BaseRequest implements RequestInterface
     private function formatCookies($cookieArr)
     {
         return implode(';', $cookieArr);
+    }
+
+    protected function formatRequestData(&$options)
+    {
+        $formatRequestDataMethod = sprintf('format%sRequestData', ucfirst(strtolower($this->method)));
+        $this->{$formatRequestDataMethod}($options);
+    }
+
+    private function formatGetRequestData(&$options)
+    {
+        $options['query'] = $this->requestData;
+    }
+
+    private function formatDeleteRequestData(&$options)
+    {
+        $options['query'] = $this->requestData;
+    }
+
+    private function formatPostRequestData(&$options)
+    {
+        $this->setRequestOptions($options);
+    }
+
+    private function formatPutRequestData(&$options)
+    {
+        $this->setRequestOptions($options);
+    }
+
+    private function formatPatchRequestData(&$options)
+    {
+        $this->setRequestOptions($options);
+    }
+
+    private function setRequestOptions(&$options)
+    {
+        switch ($this->getContentType()) {
+            case 'application/json':
+                $options['json'] = $this->requestData;
+                break;
+            case 'multipart/form-data':
+                $options['multipart'] = $this->requestData;
+                break;
+            case 'application/x-www-form-urlencoded':
+                $options['form_params'] = $this->requestData;
+                break;
+            default:
+                $options['json'] = $this->requestData;
+        }
+    }
+
+    private function getContentType()
+    {
+       $contentType = 'application/json';
+       foreach ($this->headers as $key => $value) {
+           if (strtolower($key) == 'content-type') {
+               foreach (self::CONTENT_TYPES as $value1) {
+                   if (strstr($value, $value1)) {
+                       return $value1;
+                   }
+               }
+               return $contentType;
+           }
+       }
+
+        return $contentType;
     }
 }

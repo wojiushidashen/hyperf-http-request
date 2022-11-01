@@ -17,9 +17,4 @@ class GetRequest extends BaseRequest
             $this->formatRequestData($options);
         });
     }
-
-    private function formatRequestData(&$options)
-    {
-        $options['query'] = $this->requestData;
-    }
 }

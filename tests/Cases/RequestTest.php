@@ -31,7 +31,10 @@ class RequestTest extends TestCase
         $cookies = [
             'a' => 1,
         ];
-        $headers = ['response_str' => true];
+        $headers = [
+            'response_str' => false,
+            'content-type' => 'application/x-www-form-urlencoded',
+        ];
         $result = $this->request
             ->getInstance(BaseRequest::GET_METHOD)
             ->withUrl($url)

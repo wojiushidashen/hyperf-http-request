@@ -13,15 +13,4 @@ class PatchRequest extends BaseRequest
             $this->formatRequestData($options);
         });
     }
-
-    private function formatRequestData(&$options)
-    {
-        if (! isset($this->headers['Content-Type'])) {
-            $options['json'] = $this->requestData;
-            return true;
-        }
-
-        $options['form_params'] = $this->requestData;
-        return true;
-    }
 }
