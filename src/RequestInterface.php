@@ -7,6 +7,13 @@ namespace Hyperf\HttpRequest;
 interface RequestInterface
 {
     /**
+     * 自定义请求.
+     * @param callable $request
+     * @return mixed
+     */
+    public function send(callable $request);
+
+    /**
      * 分发请求.
      * @return array
      */

@@ -32,11 +32,11 @@ class RequestTest extends TestCase
             'a' => 1,
         ];
         $headers = [
-            'response_str' => false,
+            'response_str' => true,
             'content-type' => 'application/x-www-form-urlencoded',
         ];
         $result = $this->request
-            ->getInstance(BaseRequest::POST_METHOD)
+            ->getInstance(BaseRequest::GET_METHOD)
             ->withUrl($url)
             ->withRequestData($data)
             ->withCookies($cookies)
