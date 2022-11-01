@@ -10,11 +10,5 @@ namespace Hyperf\HttpRequest;
  */
 class GetRequest extends BaseRequest
 {
-    public function request()
-    {
-        $this->withMethod(self::GET_METHOD);
-        return $this->send(function (&$options) {
-            $this->formatRequestData($options);
-        });
-    }
+    public $method = self::GET_METHOD;
 }

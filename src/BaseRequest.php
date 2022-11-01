@@ -27,10 +27,14 @@ class BaseRequest implements RequestInterface
 
     public const PUT_METHOD = 'PUT';
 
+    public const APPLICATION_JSON = 'application/json';
+    public const MULTIPART_FORM_DATA= 'multipart/form-data';
+    public const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
+
     public const CONTENT_TYPES = [
-        'application/json',
-        'multipart/form-data',
-        'application/x-www-form-urlencoded',
+        self::APPLICATION_JSON,
+        self::MULTIPART_FORM_DATA,
+        self::APPLICATION_X_WWW_FORM_URLENCODED,
     ];
 
     public $url;
@@ -132,7 +136,7 @@ class BaseRequest implements RequestInterface
     public function request()
     {
         return $this->send(function (&$options) {
-            return true;
+            $this->formatRequestData($options);
         });
     }
 
@@ -186,13 +190,13 @@ class BaseRequest implements RequestInterface
     private function setRequestOptions(&$options)
     {
         switch ($this->getContentType()) {
-            case 'application/json':
+            case self::APPLICATION_JSON:
                 $options['json'] = $this->requestData;
                 break;
-            case 'multipart/form-data':
+            case self::MULTIPART_FORM_DATA:
                 $options['multipart'] = $this->requestData;
                 break;
-            case 'application/x-www-form-urlencoded':
+            case self::APPLICATION_X_WWW_FORM_URLENCODED:
                 $options['form_params'] = $this->requestData;
                 break;
             default:
@@ -202,7 +206,7 @@ class BaseRequest implements RequestInterface
 
     private function getContentType()
     {
-       $contentType = 'application/json';
+       $contentType = self::APPLICATION_JSON;
        foreach ($this->headers as $key => $value) {
            if (strtolower($key) == 'content-type') {
                foreach (self::CONTENT_TYPES as $value1) {

@@ -36,7 +36,7 @@ class RequestTest extends TestCase
             'content-type' => 'application/x-www-form-urlencoded',
         ];
         $result = $this->request
-            ->getInstance(BaseRequest::GET_METHOD)
+            ->getInstance(BaseRequest::POST_METHOD)
             ->withUrl($url)
             ->withRequestData($data)
             ->withCookies($cookies)

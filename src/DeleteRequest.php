@@ -6,11 +6,5 @@ namespace Hyperf\HttpRequest;
 
 class DeleteRequest extends BaseRequest
 {
-    public function request()
-    {
-        $this->withMethod(self::DELETE_METHOD);
-        return $this->send(function (&$options) {
-            $this->formatRequestData($options);
-        });
-    }
+    public $method = self::DELETE_METHOD;
 }
